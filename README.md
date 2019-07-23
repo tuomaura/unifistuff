@@ -57,12 +57,13 @@ Errors in the configuration can be fixed by uploading a new `config.gateway.json
 ```bash
 ssh root@CONTROLLER.IP rm /var/lib/unifi/sites/XXXXXXXX/config.gateway.json
 ```
-Once the gateway has been provisioned, you can also ssh to the gateway and review the configuration in both EdgeRouter and JSON formats:
+Once the gateway has been provisioned, you can also ssh to the gateway and review the configuration in both EdgeRouter and JSON formats as well as the statistics:
 
 ```bash
 ssh admin@GATEWAY.IP
 show configuration
 mca-ctrl -t dump-cfg 
+show firewall
 ```
 
 ## Discussion
@@ -70,6 +71,8 @@ mca-ctrl -t dump-cfg
 Marking packets seems currently the only way to implement firewall rules between IPv6 subnets in a Unifi Security Gateway that receives its IPv6 prefix with DHCPv6-PD. There may be a performance penalty related to the marking, although I have not done measurements. A better solution would be for Unifi to implement IPv6 rules that update dynamically when the gateway receives a new PD prefix from the ISP's DHCPv6 server. 
 
 EdgeRouter suffers from the same problem. The generated rules would also work for EdgeRouter, but the configuration syntax is slightly different. The `config.gateway.json` file is a JSONified version of standard EdgeRouter configuration entries.  
+
+In terms of netfilter, the packets are marked in the pre-routing mangle table and the filtering is done in the post-routing mangle table. Luckily, these tables are not used by the IPv6 firewall rules created by the Unifi Controller.  
 
 Some web pages suggest filtering cross-subnet traffic with IPv6 address masks that match only the IPv6 Prefix Id (e.g. `"source": { "address": "::02:0:0:0:0/::ff:0:0:0:0" }` to match the Prefix Id 2). This would work correctly for cross-subnet traffic, but the filtering rules will also drop some packets from the Internet when they accidentally match the Prefix Id. Thus, it is not a real solution.
 
