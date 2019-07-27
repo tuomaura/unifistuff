@@ -100,11 +100,10 @@ def src_wildcard_exception(tables, dst_name, action, log, note):
         number = number + 1
     rules[number] = {
         'action': action,
-        'log': 'enable' if log else 'disable'
+        'log': 'enable' if log else 'disable',
+        'description': 'Override default action' + ( ': '+note if note else '' )
     }
     del rules[2999]
-    desc = 'Override default action' + ( ': '+note if note else '' )
-    rules[number]['description'] = desc
 
 def dst_wildcard_exception(tables, src_mark, networks, action, log, note):
     for net in networks:
