@@ -145,9 +145,9 @@ def make_firewall(networks, default_action, exceptions, log_default):
             if f not in net:
                 raise ValueError(f'Must specify field {f} for all networks.') 
         if not isinstance(net['vlan'], (int, type(None))):
-            raise ValueError(f'Invalid VLAN: {net["vlan"]}. Should be integer or None.')     
+            raise ValueError(f'Invalid VLAN: {net["vlan"]}. Should be a number or None.')     
         if not isinstance(net['mark'], (int, type(None))):
-            raise ValueError(f'Invalid VLAN: {net["mark"]}. Should be integer or None.')     
+            raise ValueError(f'Invalid VLAN: {net["mark"]}. Should be a number or None.')     
     network_names = [ net['name'] for net in networks ] 
     for name in network_names:
         if network_names.count(name) > 1:
@@ -158,12 +158,13 @@ def make_firewall(networks, default_action, exceptions, log_default):
         for f in fields:
             if f not in ex:
                 raise ValueError(f'Must specify field {f} for all exceptions.') 
-    for ex in exceptions:
         if ex['src'] == '*' and ex['dst'] == '*':
             raise ValueError('Exception cannot have wildcard * as both source and destination.')
         for name in (ex['src'], ex['dst']):
             if name != '*' and name not in network_names:
                 raise ValueError(f'{name} in exceptions but not in network names.')
+        if ex['src'] != '*' and names_to_marks[ex['src']] is None:
+            raise ValueError(f'Source network {ex["src"]} in exceptions must have numeric mark.')
 
     tables = default_mod_tables(networks, default_action, log_default)
     for ex in exceptions:
