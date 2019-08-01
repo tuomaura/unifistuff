@@ -1,0 +1,469 @@
+{
+    "firewall": {
+        "ipv6-modify": {
+            "LAN_IN_MOD_v6": {
+                "description": "Mark incoming packets from LAN (infra)",
+                "rule": {
+                    "2000": {
+                        "action": "modify",
+                        "log": "disable",
+                        "modify": {
+                            "mark": "1001"
+                        }
+                    }
+                }
+            },
+            "LAN_OUT_MOD_v6": {
+                "description": "Filter outgoing packets to LAN (infra)",
+                "rule": {
+                    "2000": {
+                        "action": "accept",
+                        "log": "disable",
+                        "state": {
+                            "established": "enable",
+                            "related": "enable"
+                        }
+                    },
+                    "2001": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "134"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2002": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "135"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2003": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "136"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2004": {
+                        "action": "accept",
+                        "description": "Users to network infra",
+                        "log": "disable",
+                        "mark": "1002"
+                    },
+                    "2999": {
+                        "action": "drop",
+                        "description": "default action",
+                        "log": "enable"
+                    }
+                }
+            },
+            "VLAN1002_IN_MOD_v6": {
+                "description": "Mark incoming packets from VLAN1002 (vlan 1002, users)",
+                "rule": {
+                    "2000": {
+                        "action": "modify",
+                        "log": "disable",
+                        "modify": {
+                            "mark": "1002"
+                        }
+                    }
+                }
+            },
+            "VLAN1002_OUT_MOD_v6": {
+                "description": "Filter outgoing packets to VLAN1002 (vlan 1002, users)",
+                "rule": {
+                    "2000": {
+                        "action": "accept",
+                        "log": "disable",
+                        "state": {
+                            "established": "enable",
+                            "related": "enable"
+                        }
+                    },
+                    "2001": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "134"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2002": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "135"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2003": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "136"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2999": {
+                        "action": "drop",
+                        "description": "default action",
+                        "log": "enable"
+                    }
+                }
+            },
+            "VLAN1004_IN_MOD_v6": {
+                "description": "Mark incoming packets from VLAN1004 (vlan 1004, iot)",
+                "rule": {
+                    "2000": {
+                        "action": "modify",
+                        "log": "disable",
+                        "modify": {
+                            "mark": "1004"
+                        }
+                    }
+                }
+            },
+            "VLAN1004_OUT_MOD_v6": {
+                "description": "Filter outgoing packets to VLAN1004 (vlan 1004, iot)",
+                "rule": {
+                    "2000": {
+                        "action": "accept",
+                        "log": "disable",
+                        "state": {
+                            "established": "enable",
+                            "related": "enable"
+                        }
+                    },
+                    "2001": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "134"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2002": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "135"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2003": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "136"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2004": {
+                        "action": "accept",
+                        "description": "Users to IoT devices ",
+                        "log": "disable",
+                        "mark": "1002"
+                    },
+                    "2999": {
+                        "action": "drop",
+                        "description": "default action",
+                        "log": "enable"
+                    }
+                }
+            },
+            "VLAN1005_IN_MOD_v6": {
+                "description": "Mark incoming packets from VLAN1005 (vlan 1005, gaming)",
+                "rule": {
+                    "2000": {
+                        "action": "modify",
+                        "log": "disable",
+                        "modify": {
+                            "mark": "1005"
+                        }
+                    }
+                }
+            },
+            "VLAN1005_OUT_MOD_v6": {
+                "description": "Filter outgoing packets to VLAN1005 (vlan 1005, gaming)",
+                "rule": {
+                    "2000": {
+                        "action": "accept",
+                        "log": "disable",
+                        "state": {
+                            "established": "enable",
+                            "related": "enable"
+                        }
+                    },
+                    "2001": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "134"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2002": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "135"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2003": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "136"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2004": {
+                        "action": "accept",
+                        "description": "Users to gaming PC",
+                        "log": "disable",
+                        "mark": "1002"
+                    },
+                    "2999": {
+                        "action": "drop",
+                        "description": "default action",
+                        "log": "enable"
+                    }
+                }
+            },
+            "VLAN1007_IN_MOD_v6": {
+                "description": "Mark incoming packets from VLAN1007 (vlan 1007, printer)",
+                "rule": {
+                    "2000": {
+                        "action": "modify",
+                        "log": "disable",
+                        "modify": {
+                            "mark": "1007"
+                        }
+                    }
+                }
+            },
+            "VLAN1007_OUT_MOD_v6": {
+                "description": "Filter outgoing packets to VLAN1007 (vlan 1007, printer)",
+                "rule": {
+                    "2000": {
+                        "action": "accept",
+                        "log": "disable",
+                        "state": {
+                            "established": "enable",
+                            "related": "enable"
+                        }
+                    },
+                    "2001": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "134"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2002": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "135"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2003": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "136"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2004": {
+                        "action": "accept",
+                        "description": "Users to printer",
+                        "log": "disable",
+                        "mark": "1002"
+                    },
+                    "2005": {
+                        "action": "accept",
+                        "description": "Gaming PC to printer",
+                        "log": "disable",
+                        "mark": "1005"
+                    },
+                    "2999": {
+                        "action": "drop",
+                        "description": "default action",
+                        "log": "enable"
+                    }
+                }
+            },
+            "VLAN1009_IN_MOD_v6": {
+                "description": "Mark incoming packets from VLAN1009 (vlan 1009, guest)",
+                "rule": {
+                    "2000": {
+                        "action": "modify",
+                        "log": "disable",
+                        "modify": {
+                            "mark": "1009"
+                        }
+                    }
+                }
+            },
+            "VLAN1009_OUT_MOD_v6": {
+                "description": "Filter outgoing packets to VLAN1009 (vlan 1009, guest)",
+                "rule": {
+                    "2000": {
+                        "action": "accept",
+                        "log": "disable",
+                        "state": {
+                            "established": "enable",
+                            "related": "enable"
+                        }
+                    },
+                    "2001": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "134"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2002": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "135"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2003": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "136"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2999": {
+                        "action": "drop",
+                        "description": "default action",
+                        "log": "enable"
+                    }
+                }
+            },
+            "WAN_IN_MOD_v6": {
+                "description": "Mark incoming packets from WAN",
+                "rule": {
+                    "2000": {
+                        "action": "modify",
+                        "log": "disable",
+                        "modify": {
+                            "mark": "1000"
+                        }
+                    }
+                }
+            },
+            "WAN_OUT_MOD_v6": {
+                "description": "Filter outgoing packets to WAN",
+                "rule": {
+                    "2000": {
+                        "action": "accept",
+                        "log": "disable",
+                        "state": {
+                            "established": "enable",
+                            "related": "enable"
+                        }
+                    },
+                    "2001": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "134"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2002": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "135"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2003": {
+                        "action": "accept",
+                        "icmpv6": {
+                            "type": "136"
+                        },
+                        "protocol": "ipv6-icmp"
+                    },
+                    "2004": {
+                        "action": "accept",
+                        "description": "Override default action: WAN access from all",
+                        "log": "disable"
+                    }
+                }
+            }
+        }
+    },
+    "interfaces": {
+        "ethernet": {
+            "eth0": {
+                "firewall": {
+                    "in": {
+                        "ipv6-modify": "WAN_IN_MOD_v6"
+                    },
+                    "out": {
+                        "ipv6-modify": "WAN_OUT_MOD_v6"
+                    }
+                }
+            },
+            "eth1": {
+                "firewall": {
+                    "in": {
+                        "ipv6-modify": "LAN_IN_MOD_v6"
+                    },
+                    "out": {
+                        "ipv6-modify": "LAN_OUT_MOD_v6"
+                    }
+                },
+                "vif": {
+                    "1002": {
+                        "firewall": {
+                            "in": {
+                                "ipv6-modify": "VLAN1002_IN_MOD_v6"
+                            },
+                            "out": {
+                                "ipv6-modify": "VLAN1002_OUT_MOD_v6"
+                            }
+                        }
+                    },
+                    "1004": {
+                        "firewall": {
+                            "in": {
+                                "ipv6-modify": "VLAN1004_IN_MOD_v6"
+                            },
+                            "out": {
+                                "ipv6-modify": "VLAN1004_OUT_MOD_v6"
+                            }
+                        }
+                    },
+                    "1005": {
+                        "firewall": {
+                            "in": {
+                                "ipv6-modify": "VLAN1005_IN_MOD_v6"
+                            },
+                            "out": {
+                                "ipv6-modify": "VLAN1005_OUT_MOD_v6"
+                            }
+                        }
+                    },
+                    "1007": {
+                        "firewall": {
+                            "in": {
+                                "ipv6-modify": "VLAN1007_IN_MOD_v6"
+                            },
+                            "out": {
+                                "ipv6-modify": "VLAN1007_OUT_MOD_v6"
+                            }
+                        }
+                    },
+                    "1009": {
+                        "firewall": {
+                            "in": {
+                                "ipv6-modify": "VLAN1009_IN_MOD_v6"
+                            },
+                            "out": {
+                                "ipv6-modify": "VLAN1009_OUT_MOD_v6"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
