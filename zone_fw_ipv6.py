@@ -147,7 +147,7 @@ def make_firewall(networks, default_action, exceptions, log_default):
         if not isinstance(net['vlan'], (int, type(None))):
             raise ValueError(f'Invalid VLAN: {net["vlan"]}. Should be a number or None.')     
         if not isinstance(net['mark'], (int, type(None))):
-            raise ValueError(f'Invalid VLAN: {net["mark"]}. Should be a number or None.')     
+            raise ValueError(f'Invalid mark: {net["mark"]}. Should be a number or None.')     
     network_names = [ net['name'] for net in networks ] 
     for name in network_names:
         if network_names.count(name) > 1:
@@ -192,7 +192,7 @@ networks = [
     { 'name': 'VLAN1007', 'if':'eth1', 'vlan': 1007, 'mark': 1007, 'note': 'printer'  },
     { 'name': 'VLAN1009', 'if':'eth1', 'vlan': 1009, 'mark': 1009, 'note': 'guest'  },
 ]
-default_action = 'drop'
+default_action = 'drop' # Exceptions are the opposite i.e. 'accept'
 log_default = True
 exceptions = [
     { 'src': '*'       , 'dst': 'WAN',      'log': False, 'note': 'WAN access from all' },
