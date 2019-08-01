@@ -1,0 +1,194 @@
+firewall {
+    ipv6-modify VLANv6_1002_IN_MOD {
+        description "Mark incoming packets from VLAN"
+        rule 2001 {
+            action modify
+            modify {
+                mark 2
+            }
+        }
+    }
+    ipv6-modify VLANv6_1002_OUT_MOD {
+        description "Filter outgoing packets to VLAN"
+        rule 2001 {
+            action accept
+            state {
+                established enable
+                related enable
+            }
+        }
+        rule 2002 {
+            action drop
+            mark 4
+        }
+        rule 2003 {
+            action drop
+            mark 5
+        }
+        rule 2004 {
+            action drop
+            mark 7
+        }
+        rule 2009 {
+            action drop
+            mark 9
+        }
+        rule 2010 {
+            action accept
+        }
+    }
+    ipv6-modify VLANv6_1004_IN_MOD {
+        description "Mark incoming packets from VLAN"
+        rule 2001 {
+            action modify
+            modify {
+                mark 4
+            }
+        }
+    }
+    ipv6-modify VLANv6_1004_OUT_MOD {
+        description "Filter outgoing packets to VLAN"
+        rule 2001 {
+            action accept
+            state {
+                established enable
+                related enable
+            }
+        }
+        rule 2002 {
+            action drop
+            mark 2
+        }
+        rule 2003 {
+            action drop
+            mark 5
+        }
+        rule 2004 {
+            action drop
+            mark 7
+        }
+        rule 2010 {
+            action accept
+        }
+    }
+    ipv6-modify VLANv6_1005_IN_MOD {
+        description "Mark incoming packets from VLAN"
+        rule 2001 {
+            action modify
+            modify {
+                mark 5
+            }
+        }
+    }
+    ipv6-modify VLANv6_1005_OUT_MOD {
+        description "Filter outgoing packets to VLAN"
+        rule 2001 {
+            action accept
+            state {
+                established enable
+                related enable
+            }
+        }
+        rule 2002 {
+            action drop
+            mark 2
+        }
+        rule 2003 {
+            action drop
+            mark 4
+        }
+        rule 2004 {
+            action drop
+            mark 7
+        }
+        rule 2010 {
+            action accept
+        }
+    }
+    ipv6-modify VLANv6_1007_IN_MOD {
+        description "Mark incoming packets from VLAN"
+        rule 2001 {
+            action modify
+            modify {
+                mark 7
+            }
+        }
+    }
+    ipv6-modify VLANv6_1007_OUT_MOD {
+        description "Filter outgoing packets to VLAN"
+        rule 2001 {
+            action accept
+            state {
+                established enable
+                related enable
+            }
+        }
+        rule 2002 {
+            action drop
+            mark 2
+        }
+        rule 2003 {
+            action drop
+            mark 4
+        }
+        rule 2004 {
+            action drop
+            mark 5
+        }
+        rule 2010 {
+            action accept
+        }
+    }
+}
+interfaces {
+    ethernet eth1 {
+        vif 1002 {
+            firewall {
+                in {
+                    ipv6-modify VLANv6_1002_IN_MOD
+                }
+                out {
+                    ipv6-modify VLANv6_1002_OUT_MOD
+                }
+            }
+        }
+        vif 1004 {
+            firewall {
+                in {
+                    ipv6-modify VLANv6_1004_IN_MOD
+                }
+                out {
+                    ipv6-modify VLANv6_1004_OUT_MOD
+                }
+            }
+        }
+        vif 1005 {
+            firewall {
+                in {
+                    ipv6-modify VLANv6_1005_IN_MOD
+                }
+                out {
+                    ipv6-modify VLANv6_1005_OUT_MOD
+                }
+            }
+        }
+        vif 1007 {
+            firewall {
+                in {
+                    ipv6-modify VLANv6_1007_IN_MOD
+                }
+                out {
+                    ipv6-modify VLANv6_1007_OUT_MOD
+                }
+            }    
+        }
+    }
+}
+system {
+    offload {
+        ipv6 {
+            forwarding enable
+            vlan enable
+        }
+    }
+}
